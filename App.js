@@ -3,26 +3,19 @@
 /* eslint-disable quotes */
 import React from 'react';
 import { StatusBar as ExpoStatusBar } from 'expo-status-bar';
-import { SafeAreaView, StyleSheet, Text, View, StatusBar } from 'react-native';
+import { StyleSheet, StatusBar } from 'react-native';
 import { spacing } from './src/utils/sizes';
-import { Searchbar } from 'react-native-paper';
+import { RestaurantScreen } from './src/features/restaurants/screens/restaurants.screen';
 
 export default function App() {
   return (
     <>
-      <SafeAreaView style={styles.safeAreaContainer}>
-        <View style={styles.searchContainer}>
-          <Searchbar />
-        </View>
-        <View style={styles.listContainer}>
-          <Text>list</Text>
-        </View>
-      </SafeAreaView>
+      <RestaurantScreen />
       <ExpoStatusBar style='auto' />
     </>
   );
 }
-
+/*
 const styles = StyleSheet.create({
   appContianer: {
     flex: 1,
@@ -45,4 +38,4 @@ const styles = StyleSheet.create({
   },
 });
 
-//
+*/
