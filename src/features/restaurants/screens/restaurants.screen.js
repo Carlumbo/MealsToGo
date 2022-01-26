@@ -1,43 +1,35 @@
-/* eslint-disable prettier/prettier */
-
 import React from 'react';
-//import { StatusBar as ExpoStatusBar } from 'expo-status-bar';
+import styled from 'styled-components/native';
 import { spacing } from '../../../utils/sizes';
-import { SafeAreaView, StyleSheet, Text, View, StatusBar } from 'react-native';
+import { SafeAreaView, StatusBar } from 'react-native';
 import { Searchbar } from 'react-native-paper';
-import RestaurantInfo from '../components/restaurant-info';
+import RestaurantInfoCard from '../components/restaurant-info-card';
+
+//if status bar has a value add margin top
+const SafeArea = styled(SafeAreaView)`
+  flex: 1;
+  ${StatusBar.currentHeight && `margin-top: ${StatusBar.currentHeight}px`}
+`;
+
+const SearchView = styled.View`
+  padding: ${spacing.sm}px;
+  background-color: white;
+`;
+const ResView = styled.View`
+  flex: 1;
+  padding: 16px;
+  background-color: #7788ff;
+`;
 
 export const RestaurantScreen = () => {
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.search}>
+    <SafeArea>
+      <SearchView>
         <Searchbar />
-      </View>
-      <View style={styles.list}>
-        <RestaurantInfo />
-      </View>
-    </SafeAreaView>
+      </SearchView>
+      <ResView>
+        <RestaurantInfoCard />
+      </ResView>
+    </SafeArea>
   );
 };
-
-const styles = StyleSheet.create({
-  appContianer: {
-    flex: 1,
-    backgroundColor: '#559900',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  search: {
-    padding: spacing.sm,
-    backgroundColor: 'white',
-  },
-  list: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: 'blue',
-  },
-  container: {
-    flex: 1,
-    marginTop: StatusBar.currentHeight,
-  },
-});

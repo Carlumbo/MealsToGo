@@ -1,6 +1,7 @@
 {"extends": "@react-native-community", 
   "rules" : { 
     "quotes" : "off",
-    "prettier/prettier" : "off"
+    "prettier/prettier" : "off", 
+    "jsx-quotes"  : "off" 
     } 
 }
