@@ -47,8 +47,8 @@ const Section = styled.View`
 `;
 
 const OpenImg = styled(SvgXml)`
-  width: ${(props) => props.theme.sizes[1]};
-  height: ${(props) => props.theme.sizes[1]};
+  width: ${(props) => props.theme.sizes[2]};
+  height: ${(props) => props.theme.sizes[2]};
 `;
 
 const RestImg = styled(Image)`
@@ -66,7 +66,7 @@ const RestaurantInfoCard = ({ restaurant = {} }) => {
     address = '155 Fake Street, Cleveland, Ohio 44113',
     isOpenNow = true,
     rating = 25,
-    isClosedTemporarily = true,
+    isClosedTemporarily = false,
   } = restaurant;
 
   let maxRating;
@@ -94,12 +94,10 @@ const RestaurantInfoCard = ({ restaurant = {} }) => {
                   CLOSED TEMPORARILY
                 </Text>
               )}
-              <Spacer position='left' size='large'>
-                {isOpenNow /*&& !isClosedTemporarily*/ && (
-                  <OpenImg xml={openSvg} />
-                )}
+              <Spacer position='left' size='medium'>
+                {isOpenNow && !isClosedTemporarily && <OpenImg xml={openSvg} />}
               </Spacer>
-              <Spacer position='left' size='large'>
+              <Spacer position='left' size='medium'>
                 <RestImg source={{ uri: icon }} />
               </Spacer>
             </SectionEnd>
