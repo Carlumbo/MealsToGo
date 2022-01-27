@@ -1,7 +1,3 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable jsx-quotes */
-/* eslint-disable quotes */
-
 import * as React from 'react';
 import { Searchbar } from 'react-native-paper';
 

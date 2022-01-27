@@ -1,4 +1,4 @@
-export const fontSizes = {
+/*export const fontSizes = {
   sm: 8,
   md: 16,
   lg: 24,
@@ -15,3 +15,4 @@ export const spacing = {
   xxl: 40,
   xxxl: 80,
 };
+*/
