@@ -1,24 +1,8 @@
 import React from 'react';
-import styled from 'styled-components/native';
-import { SafeAreaView, StatusBar } from 'react-native';
 import { Searchbar } from 'react-native-paper';
-import RestaurantInfoCard from '../components/restaurant-info-card';
-
-//if status bar has a value add margin top
-const SafeArea = styled(SafeAreaView)`
-  flex: 1;
-  ${StatusBar.currentHeight && `margin-top: ${StatusBar.currentHeight}px`}
-`;
-
-const SearchView = styled.View`
-  padding: ${(props) => props.theme.space[3]};
-  background-color: ${(props) => props.theme.colors.ui.quaternary};
-`;
-const ResView = styled.View`
-  flex: 1;
-  padding: ${(props) => props.theme.space[3]};
-  background-color: ${(props) => props.theme.colors.brand.primary};
-`;
+import { RestaurantInfoCard } from '../components/restaurant-info-card';
+import { SearchView, ResView, ResList } from './restuarants.styles';
+import { SafeArea } from '../../../components/utiity/safe-area.component';
 
 export const RestaurantScreen = () => {
   return (
@@ -27,7 +11,21 @@ export const RestaurantScreen = () => {
         <Searchbar />
       </SearchView>
       <ResView>
-        <RestaurantInfoCard />
+        <ResList
+          data={[
+            { name: 1 },
+            { name: 2 },
+            { name: 3 },
+            { name: 4 },
+            { name: 5 },
+            { name: 6 },
+            { name: 7 },
+            { name: 8 },
+            { name: 9 },
+          ]}
+          renderItem={() => <RestaurantInfoCard />}
+          keyExtractor={(item) => item.name}
+        />
       </ResView>
     </SafeArea>
   );

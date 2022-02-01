@@ -1,62 +1,23 @@
 import React from 'react';
-import { Avatar, Button, Card, Paragraph } from 'react-native-paper';
-import { Text, Image, View } from 'react-native';
-import styled from 'styled-components/native';
-import { SvgXml } from 'react-native-svg';
 import star from '../../../../assets/star';
 import { Spacer } from '../../../components/spacer/Spacer.component';
-//import uuid from 'react-uuid';
 import openSvg from '../../../../assets/openSvg';
+import { Text } from '../../../components/topography/text.component';
+import uuid from 'react-uuid';
+import {
+  RestCard,
+  ResCardCover,
+  Info,
+  Rating,
+  Address,
+  SectionEnd,
+  Section,
+  FakeView,
+  OpenImg,
+  Icon,
+} from './restuarant-info-card.styles';
 
-const Title = styled.Text`
-  font-family: ${(props) => props.theme.fonts.heading}
-  font-size: ${(props) => props.theme.fontSizes.body}
-
-  color: ${(props) => props.theme.colors.ui.primary};
-`;
-const RestCard = styled(Card)`
-  background-color: ${(props) => props.theme.colors.ui.quaternary};
-`;
-const ResCardCover = styled(Card.Cover)`
-  padding: ${(props) => props.theme.space[3]};
-  background-color: ${(props) => props.theme.colors.ui.quaternary};
-`;
-
-const Info = styled.View`
-  padding: ${(props) => props.theme.space[3]};
-`;
-const Rating = styled.View`
-  flex-direction: row;
-  padding-top: ${(props) => props.theme.space[2]};
-  padding-bottom: ${(props) => props.theme.space[2]};
-`;
-
-const Address = styled.Text`
-font-family: ${(props) => props.theme.fonts.heading}
-font-size: ${(props) => props.theme.fontSizes.caption}`;
-
-const SectionEnd = styled.View`
-  flex: 1;
-  flex-direction: row;
-  justify-content: flex-end;
-`;
-
-const Section = styled.View`
-  flex-direction: row;
-  align-items: center;
-`;
-
-const OpenImg = styled(SvgXml)`
-  width: ${(props) => props.theme.sizes[2]};
-  height: ${(props) => props.theme.sizes[2]};
-`;
-
-const RestImg = styled(Image)`
-  width: ${(props) => props.theme.sizes[1]};
-  height: ${(props) => props.theme.sizes[1]};
-`;
-
-const RestaurantInfoCard = ({ restaurant = {} }) => {
+export const RestaurantInfoCard = ({ restaurant = {} }) => {
   const {
     name = "Carl's Restaurant",
     icon = 'https://cdn-icons-png.flaticon.com/512/632/632339.png',
@@ -66,7 +27,7 @@ const RestaurantInfoCard = ({ restaurant = {} }) => {
     address = '155 Fake Street, Cleveland, Ohio 44113',
     isOpenNow = true,
     rating = 25,
-    isClosedTemporarily = false,
+    isClosedTemporarily = true,
   } = restaurant;
 
   let maxRating;
@@ -82,24 +43,20 @@ const RestaurantInfoCard = ({ restaurant = {} }) => {
         }}
       />
       <Info>
-        <Title>{name}</Title>
+        <Text variant='label'>{name}</Text>
         <Section>
           <Rating>
             {ratingArray.map(() => (
-              <SvgXml xml={star} width={20} height={20} />
+              <OpenImg key={uuid()} xml={star} />
             ))}
             <SectionEnd>
               {isClosedTemporarily && (
-                <Text variant='label' style={{ color: 'red' }}>
-                  CLOSED TEMPORARILY
-                </Text>
+                <Text variant='error'>CLOSED TEMPORARILY</Text>
               )}
-              <Spacer position='left' size='medium'>
-                {isOpenNow && !isClosedTemporarily && <OpenImg xml={openSvg} />}
-              </Spacer>
-              <Spacer position='left' size='medium'>
-                <RestImg source={{ uri: icon }} />
-              </Spacer>
+              <Spacer position='left' size='large' />
+              {isOpenNow && !isClosedTemporarily && <OpenImg xml={openSvg} />}
+              <Spacer position='left' size='large' />
+              <Icon source={{ uri: icon }} />
             </SectionEnd>
           </Rating>
         </Section>
@@ -108,13 +65,3 @@ const RestaurantInfoCard = ({ restaurant = {} }) => {
     </RestCard>
   );
 };
-
-/* <Card.Content >
-        <Text>{address}</Text>
-        <Card.Actions>
-          <Button>Favorite</Button>
-          <Button>Menu</Button>
-        </Card.Actions>
-      </Card.Content> */
-
-export default RestaurantInfoCard;
