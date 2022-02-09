@@ -1,32 +1,47 @@
-import React from 'react';
-import { Searchbar } from 'react-native-paper';
+import React, { useContext } from 'react';
+import { ActivityIndicator, Colors, Searchbar } from 'react-native-paper';
 import { RestaurantInfoCard } from '../components/restaurant-info-card';
-import { SearchView, ResView, ResList } from './restuarants.styles';
-import { SafeArea } from '../../../components/utiity/safe-area.component';
+import {
+  SearchView,
+  ResView,
+  ActiveView,
+  ResList as RestaurantList,
+} from './restuarants.styles';
+import { SafeArea } from '../../../components/utility/safe-area.component';
+import { RestaurantsContext } from '../../../services/restaurant/restaurants.context';
+import { Spacer } from '../../../components/spacer/Spacer.component';
 
 export const RestaurantScreen = () => {
+  const { isLoading, error, restaurants } = useContext(RestaurantsContext);
+
   return (
     <SafeArea>
+      {isLoading && (
+        <ActiveView>
+          <ActivityIndicator
+            animating={true}
+            color={Colors.blue800}
+            size='large'
+          />
+        </ActiveView>
+      )}
       <SearchView>
         <Searchbar />
       </SearchView>
       <ResView>
-        <ResList
-          data={[
-            { name: 1 },
-            { name: 2 },
-            { name: 3 },
-            { name: 4 },
-            { name: 5 },
-            { name: 6 },
-            { name: 7 },
-            { name: 8 },
-            { name: 9 },
-          ]}
-          renderItem={() => <RestaurantInfoCard />}
+        <RestaurantList
+          data={restaurants}
+          renderItem={({ item }) => {
+            return (
+              <Spacer position='bottom' size='large'>
+                <RestaurantInfoCard restaurant={item} />
+              </Spacer>
+            );
+          }}
           keyExtractor={(item) => item.name}
         />
       </ResView>
     </SafeArea>
   );
+  // }
 };

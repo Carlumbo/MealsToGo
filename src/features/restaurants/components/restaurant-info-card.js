@@ -18,21 +18,21 @@ import {
 } from './restuarant-info-card.styles';
 
 export const RestaurantInfoCard = ({ restaurant = {} }) => {
-  const {
-    name = "Carl's Restaurant",
-    icon = 'https://cdn-icons-png.flaticon.com/512/632/632339.png',
-    photos = [
-      'https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80',
-    ],
-    address = '155 Fake Street, Cleveland, Ohio 44113',
-    isOpenNow = true,
-    rating = 25,
-    isClosedTemporarily = true,
+  // console.log(restaurant);
+  let {
+    name,
+    icon,
+    photos,
+    vicinity,
+    isOpenNow,
+    rating,
+    permanentlyClosed,
+    isClosedTemporarily,
   } = restaurant;
-
-  let maxRating;
-  rating > 5 ? (maxRating = 5) : (maxRating = rating);
-  const ratingArray = Array.from(new Array(Math.ceil(maxRating)));
+  let address = vicinity;
+  rating > 5 ? (rating = 5) : rating;
+  rating < 1 ? (rating = 1) : rating;
+  const ratingArray = Array.from(new Array(Math.floor(rating)));
 
   return (
     <RestCard>
@@ -49,19 +49,30 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
             {ratingArray.map(() => (
               <OpenImg key={uuid()} xml={star} />
             ))}
-            <SectionEnd>
-              {isClosedTemporarily && (
-                <Text variant='error'>CLOSED TEMPORARILY</Text>
-              )}
-              <Spacer position='left' size='large' />
-              {isOpenNow && !isClosedTemporarily && <OpenImg xml={openSvg} />}
-              <Spacer position='left' size='large' />
-              <Icon source={{ uri: icon }} />
-            </SectionEnd>
           </Rating>
+          <SectionEnd>
+            {permanentlyClosed && (
+              <Text variant='error'>CLOSED PERMANENTLY</Text>
+            )}
+
+            {isClosedTemporarily ||
+              (!isOpenNow && <Text variant='error'>CLOSED TEMPORARILY</Text>)}
+            <Spacer position='left' size='large' />
+            {isOpenNow && !isClosedTemporarily && <OpenImg xml={openSvg} />}
+            <Spacer position='left' size='large' />
+            <Icon source={{ uri: icon }} />
+          </SectionEnd>
         </Section>
         <Address>{address}</Address>
       </Info>
     </RestCard>
   );
 };
+
+{
+  /* <Rating>
+  {ratingArray.map(() => (
+    <OpenImg key={uuid()} xml={star} />
+  ))}
+</Rating>; */
+}

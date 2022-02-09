@@ -18,3 +18,8 @@ export const ResList = styled(FlatList).attrs({
     paddingLeft: 6,
   },
 })``;
+
+export const ActiveView = styled.View`
+  justify-content: center;
+  height: 100%;
+`;
